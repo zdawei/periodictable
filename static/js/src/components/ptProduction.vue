@@ -84,7 +84,6 @@
                             params: this.$data[formName]
                         }).then( e => {
                             if(e.data.code == 1) {
-                                console.log(e.data);
                                 this.$alert('输入成功', '元素信息', {
                                     confirmButtonText: '确定',
                                     callback: action => {

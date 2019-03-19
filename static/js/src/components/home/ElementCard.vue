@@ -49,13 +49,6 @@ export default {
                 return res || {};
             }
         }
-    },
-    methods: {
-        elClick (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log(e);
-        }
     }
 };
 </script>
