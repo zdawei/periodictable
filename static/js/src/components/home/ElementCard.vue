@@ -1,12 +1,22 @@
 <template>
     <!-- Class based styling for each element -->
     <div class="element" v-show="mode === 'table' || mode === 'addition'">
-        <div class="atomicnumber">
-            {{element.atomicNumber}}
-            <span>{{element.atomicMass}}</span>
+        <el-popover
+            ref="popover"
+            placement="right"
+            :title="ptTip.element || element.symbol"
+            width="200"
+            trigger="focus"
+            :content="'材料：'+(ptTip.stuff || '未记录') + ',性质：'+ (ptTip.nature || '未记录')">
+        </el-popover>
+        <div v-popover:popover>
+            <div class="atomicnumber">
+                {{element.atomicNumber}}
+                <span>{{element.atomicMass}}</span>
+            </div>
+            <div class="symbol">{{element.symbol}}</div>
+            <div class="name">{{element.name}}</div>
         </div>
-        <div class="symbol">{{element.symbol}}</div>
-        <div class="name">{{element.name}}</div>
     </div>
 </template>
 
@@ -27,39 +37,24 @@ export default {
         }
         this.loaded = true;
     },
-    methods: {
-        //convert dataset atomic mass to standard atomic mass
-        convertMass(element) {
-            var n = element.atomicNumber;
-            var m = element.atomicMass;
-            var exceptions = [
-                57,
-                58,
-                59,
-                60,
-                62,
-                63,
-                64,
-                65,
-                66,
-                67,
-                68,
-                69,
-                70,
-                71,
-                90,
-                91,
-                92
-            ];
-            if (
-                (n <= 83 && n !== 61 && n !== 43) ||
-                exceptions.indexOf(n) > -1
-            ) {
-                m = m.slice(0, -3);
-                return parseFloat(parseFloat(m).toFixed(3));
-            } else {
-                return m.toString();
+    computed : {
+        ptTip : {
+            get () {
+                let res = false;
+                for(let k in this.$store.state.ptTip) {
+                    if(this.$store.state.ptTip[k].element.toLowerCase() == this.element.symbol.toLowerCase()) {
+                        res = this.$store.state.ptTip[k];
+                    }
+                }
+                return res || {};
             }
+        }
+    },
+    methods: {
+        elClick (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log(e);
         }
     }
 };

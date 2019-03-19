@@ -1,11 +1,9 @@
 
-// import axios from 'axios';
-// import util from '../assets/js/util.js';
-
 export default {
     state : {
         pageIndex : 1,
         isLogin : 0,
+        ptTip : null
     },
     mutations : {
         upatePageIndex (state, opt) {
@@ -13,6 +11,9 @@ export default {
         },
         upateLogin (state, opt) {
             state.isLogin = opt;
+        },
+        updateptTip (state, opt) {
+            state.ptTip = opt;
         }
     },
 };

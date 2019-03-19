@@ -13,31 +13,25 @@
         <div class="info">
             <div class="state">
                 <p>Phase</p>
-                <img v-bind:src="getImg(element.standardState)" v-bind:alt="pic">
+                <img v-bind:src="getImg(element.standardState)">
             </div>
             <div class="display">
                 <p class="label">Atomic Mass</p>
                 <p class="value">{{element.atomicMass}}</p>
             </div>
             <div class="display">
-                <v-tooltip top>
-                    <p slot="activator" class="label" color="primary">Density</p>
-                    <span>in g/mL</span>
-                </v-tooltip>
+                <p slot="activator" class="label" color="primary">Density</p>
+                <!-- <span>in g/mL</span> -->
                 <p class="value">{{element.density || 'unknown'}}</p>
             </div>
             <div id="bohr-model-container"></div>
-            <v-tooltip bottom>
-                <div class="bohrOverlay" slot="activator"></div>
-                <span v-html="convertEC(element)"></span>
-            </v-tooltip>
         </div>
     </div>
 </template>
 
 <script>
 import "atomic-bohr-model/dist/atomicBohrModel.min.js";
-import General from "@/assets/elementGeneral.json";
+import General from "../../../../assets/elementGeneral.json";
 
 export default {
     name: "InfoBox",
@@ -275,13 +269,17 @@ export default {
         },
         getImg(state) {
             if (state === "solid") {
-                return require("@/assets/solid.png");
+                // return require("@/assets/solid.png");
+                return "/assets/solid.png";
             } else if (state === "liquid") {
-                return require("@/assets/liquid.png");
+                // return require("@/assets/liquid.png");
+                return '/assets/liquid.png';
             } else if (state === "gas") {
-                return require("@/assets/gas.png");
+                // return require("@/assets/gas.png");
+                return '/assets/gas.png';
             } else {
-                return require("@/assets/unknown.png");
+                // return require("@/assets/unknown.png");
+                return '/assets/unknown.png';
             }
         },
         convertMass(element) {

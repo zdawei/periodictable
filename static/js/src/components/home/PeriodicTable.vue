@@ -8,46 +8,6 @@
             <div v-if="!current & mode === 'table'" class="introduction">
                 <div class="features">
                     <div class="tips">
-                        <!-- <div
-                            v-for="point in points"
-                            :key="point.description"
-                            :class="point.class+' point'"
-                        >
-                            <v-icon :style="{color: point.color}">{{point.icon}}</v-icon>
-                            <p>{{point.description}}</p>
-                        </div>-->
-                        <div class="point p3">
-                            <v-icon style="color: slategrey">library_add</v-icon>
-                            <div style="clear:both"></div>
-                            <span>Right Click</span>
-
-                            <p>
-                                <br>to mass
-                                <br>compounds
-                            </p>
-                        </div>
-                        <div class="point p2">
-                            <v-icon style="color: lightsteelblue">poll</v-icon>
-                            <div style="clear:both"></div>
-
-                            <span>Switch Modes</span>
-
-                            <p>
-                                <br>to navigate to
-                                <br>periodic trends
-                            </p>
-                        </div>
-                        <div class="point p1">
-                            <v-icon style="color: lightblue">assignment</v-icon>
-                            <div style="clear:both"></div>
-
-                            <span>Click Element</span>
-
-                            <p>
-                                <br>to navigate to
-                                <br>a detailed page
-                            </p>
-                        </div>
                     </div>
                     <div id="bohr-intro-container" class="p4" :style="introBohr"></div>
                 </div>
@@ -58,14 +18,6 @@
                 :element="current"
                 :animations="animations"
             />
-            <!-- Element-right-click triggered atomic mass calculator -->
-            <AddBox
-                v-else-if="mode === 'addition'"
-                :elements="toBeSummed"
-                :symbols="toBeSummedElements"
-            />
-            <!-- Periodic Trends graphing controller -->
-            <TrendBox v-else :current="currentForTrend"/>
         </div>
         <div class="spacer3"></div>
         <!-- Loop over main-block elements in dataset, create element card -->
@@ -80,22 +32,12 @@
             oncontextmenu="return false;"
             style="z-index: 2"
         >
-            <router-link :to="{ path: '/element/' + element.atomicNumber}" class="routerWrap">
-                <ElementCard
-                    :mode.sync="mode"
-                    :element="element"
-                    :key="element.atomicNumber"
-                    :class="createElementClass(element)"
-                />
-                <!-- Alternate card used when Periodic Trends mode is activated  -->
-                <TrendCard
-                    :trendToDisplay="trend"
-                    :mode.sync="mode"
-                    :element="element"
-                    :key="element.atomicNumber"
-                    :class="createElementClass(element)"
-                />
-            </router-link>
+            <ElementCard
+                :mode.sync="mode"
+                :element="element"
+                :key="element.atomicNumber"
+                :class="createElementClass(element)"
+            ></ElementCard>
         </div>
         <div class="spacer4"></div>
         <div class="spacer5"></div>
@@ -113,21 +55,12 @@
             oncontextmenu="return false;"
             style="z-index: 2"
         >
-            <router-link :to="{ path: '/element/' + element.atomicNumber}" class="routerWrap">
-                <ElementCard
-                    :mode.sync="mode"
-                    :element="element"
-                    :key="element.atomicNumber"
-                    :class="createElementClass(element)"
-                />
-                <TrendCard
-                    :trendToDisplay="trend"
-                    :mode.sync="mode"
-                    :element="element"
-                    :key="element.atomicNumber"
-                    :class="createElementClass(element)"
-                />
-            </router-link>
+            <ElementCard
+                :mode.sync="mode"
+                :element="element"
+                :key="element.atomicNumber"
+                :class="createElementClass(element)"
+            />
         </div>
         <!-- Premature hover handler -->
         <div class="hoverBlock"></div>
@@ -136,10 +69,7 @@
 
 <script>
 import ElementCard from "./ElementCard";
-import TrendCard from "./TrendCard";
-import TrendBox from "./TrendBox";
 import InfoBox from "./InfoBox";
-import AddBox from "./AddBox";
 import Elements from "@/elements";
 import "atomic-bohr-model/dist/atomicBohrModel.min.js";
 
@@ -222,9 +152,6 @@ export default {
     components: {
         ElementCard,
         InfoBox,
-        TrendCard,
-        TrendBox,
-        AddBox
     },
     mounted: function() {
         this.block = "display: block";

@@ -59,18 +59,14 @@
                 }
             }
         },
-        created () {
-            if(utils.cookie.get('APU')) {
-                this.$store.commit('upateLogin', 1);
-            }
-        }
     };
 </script>
 
 <style>
     html {
         height:100%;
-        min-width: 1000px;
+        min-width: 1300px;
+        overflow-x: auto !important;
     }
     body {
         height: 100%;
@@ -88,7 +84,7 @@
         color : black !important;
     }
     main.el-main {
-        overflow: hidden;
+        /* overflow: hidden; */
     }
     header.pt_el_header {
         padding: 0;
