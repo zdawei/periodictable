@@ -5,6 +5,9 @@ const config = require('./config/default');
 const path = require('path');
 const app = new Koa();
 
+// 记录日志
+app.use(require('./routers/log').routes());
+
 // 静态文件
 app.use(static(path.join(__dirname, './static')));
 
