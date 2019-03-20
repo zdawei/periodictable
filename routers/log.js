@@ -18,7 +18,7 @@ router.all('*', (ctx, next) => {
         fs.readFile(logPath, 'utf8',function(error,data){
             if(error){console.log(error); return;}
             let _data = data.split('\n');
-            if(_data.length > 10) {
+            if(_data.length > 1000) {
                 fs.writeFile(logPath, _data.slice(parseInt(_data.length / 2)).join('\n'), (err) => {
                     if(err) {console.log(err); return ;}
                 });

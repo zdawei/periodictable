@@ -8,7 +8,7 @@
 6. 执行命令`npm i `安装依赖
 7. 执行`npm start`打包生产环境
 8. 执行`npm i -g pm2`安装服务端监听工具
-9. 执行`pm2 start index.js --watch`，开启服务器
+9. 执行`pm2 start index.js  --watch --ignore-watch="config/log"`，开启服务器
 10. 可以进入`pm2 monit`查看服务端运行监控
 11. 可以输入`pm2 list`查看服务端开启的简单状态
 12. 文件结构
