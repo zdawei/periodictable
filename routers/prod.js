@@ -9,12 +9,13 @@ router.get('/aj/elsubmit', async (ctx) => {
     if(!(apu[2] && query.stuff && query.nature && query.element)) {
         return ctx.body = {code : response.INFO_ERR, res:{}, msg: response[response.INFO_ERR]};
     }
-    let res = await db.findEl(query.element);
-    if(res.length) {
-        await db.updateEl([apu[2], query.stuff, query.nature, query.element]).catch(e => {});
-    } else {
-        await db.insertEl([apu[2], query.element, query.stuff, query.nature]).catch(e=> {});
-    }
+    // let res = await db.findEl(query.element);
+    // if(res.length) {
+    //     await db.updateEl([apu[2], query.stuff, query.nature, query.element]).catch(e => {});
+    // } else {
+    //     await db.insertEl([apu[2], query.element, query.stuff, query.nature]).catch(e=> {});
+    // }
+    await db.insertEl([apu[2], query.element, query.stuff, query.nature]).catch(e=> {});
     let send = await db.findEl();
     ctx.body = {code : response.OK, res:send, msg: response[response.OK]};
 });

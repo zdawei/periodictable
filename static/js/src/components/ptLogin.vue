@@ -85,6 +85,14 @@
                             data: this.$data[formName]
                         }).then((res) => {
                             if(res.data.code == 1) {
+                                axios({
+                                    method: 'get',
+                                    url: '/aj/getel',
+                                }).then((resData) => {
+                                    if(resData.data.code == 1) {
+                                        this.$store.commit('updateptTip', resData.data.res);
+                                    }
+                                });
                                 this.$alert(res.data.msg, '登录信息', {
                                     confirmButtonText: '确定',
                                     callback: action => {

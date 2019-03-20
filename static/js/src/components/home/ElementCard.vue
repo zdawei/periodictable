@@ -1,7 +1,7 @@
 <template>
     <!-- Class based styling for each element -->
     <div class="element" v-show="mode === 'table' || mode === 'addition'">
-        <el-popover
+        <!-- <el-popover
             ref="popover"
             placement="right"
             :title="ptTip.element || element.symbol"
@@ -16,7 +16,25 @@
             </div>
             <div class="symbol">{{element.symbol}}</div>
             <div class="name">{{element.name}}</div>
-        </div>
+        </div> -->
+        <el-popover
+        placement="right"
+        width="300"
+        trigger="click">
+            <el-table :data="ptTip">
+                <el-table-column width="100" property="element" label="Element"></el-table-column>
+                <el-table-column width="100" property="stuff" label="Material"></el-table-column>
+                <el-table-column width="100" property="nature" label="Property"></el-table-column>
+            </el-table>
+            <div v-popover:popover slot="reference">
+                <div class="atomicnumber">
+                    {{element.atomicNumber}}
+                    <span>{{element.atomicMass}}</span>
+                </div>
+                <div class="symbol">{{element.symbol}}</div>
+                <div class="name">{{element.name}}</div>
+            </div>
+        </el-popover>
     </div>
 </template>
 
@@ -40,14 +58,24 @@ export default {
     computed : {
         ptTip : {
             get () {
-                let res = false;
+                let res = [];
                 for(let k in this.$store.state.ptTip) {
                     if(this.$store.state.ptTip[k].element.toLowerCase() == this.element.symbol.toLowerCase()) {
-                        res = this.$store.state.ptTip[k];
+                        res.push(this.$store.state.ptTip[k]);
                     }
                 }
-                return res || {};
+                return res;
             }
+            // get () {
+            //     let res = false;
+            //     for(let k in this.$store.state.ptTip) {
+            //         if(this.$store.state.ptTip[k].element.toLowerCase() == this.element.symbol.toLowerCase()) {
+            //             res = this.$store.state.ptTip[k];
+            //         }
+            //     }
+            //     console.log(res);
+            //     return res || {};
+            // }
         }
     }
 };
